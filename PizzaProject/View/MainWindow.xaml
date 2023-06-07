@@ -1,0 +1,94 @@
+﻿<Window x:Class="PizzaProject.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PizzaProject"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <StackPanel >
+        <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Vertical" >
+                <GroupBox Header="Pizza méretek">
+                    <StackPanel>
+                        <RadioButton GroupName="meret" 
+                                     Margin="10 2 " 
+                                     Content="kicsi pizza"
+                                     IsChecked="{Binding KicsiPizza}">
+                        </RadioButton>
+                        <RadioButton GroupName="meret" 
+                                     Margin="10 2 "
+                                     Content="közepes pizza"
+                                     IsChecked="{Binding KozepesPizza}">
+                        </RadioButton>
+                        <RadioButton GroupName="meret" 
+                                     Margin="10 2 "
+                                     Content="nagy pizza"
+                                     IsChecked="{Binding NagyPizza}">
+                        </RadioButton>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="Öntet" >
+                    <CheckBox IsChecked="{Binding Ontet}">Kér-e öntetet?</CheckBox>
+                </GroupBox>
+                <GroupBox Header="Feltét">
+                    <StackPanel>
+                        <CheckBox IsChecked="{Binding Sonka}">sonka</CheckBox>
+                        <CheckBox IsChecked="{Binding Kolbasz}">kolbász</CheckBox>
+                        <CheckBox IsChecked="{Binding Sajt}">sajt</CheckBox>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="Fogyasztás helye" >
+                    <StackPanel>
+                        <TextBlock>Válassza ki a fogyasztás helyét:</TextBlock>
+                        <ComboBox ItemsSource="{Binding FogyasztasiHelyek}"
+                                  SelectedItem="{Binding KivalasztottFogysztasiHely}"
+                        >
+                        </ComboBox>
+                    </StackPanel>
+                </GroupBox>
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="10 5 4 0">Pizzák száma:</TextBlock>
+                        <TextBlock Margin="2 5 " Text="{Binding Mennyiseg}"></TextBlock>
+                    </StackPanel>
+                    <Slider Name="SliderDb"                            
+                            TickPlacement="BottomRight" 
+                            Minimum="1" 
+                            Maximum="10" 
+                            TickFrequency="1" 
+                            IsSnapToTickEnabled="True" 
+                            Value="{Binding Db}">
+                    </Slider>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="10 10 2 0">Rendelés összege:</TextBlock>
+                    <TextBlock  Margin="2 10" Text="{Binding Ar}"></TextBlock>
+                </StackPanel>
+                <Button Content="Rendelés"
+                        Command="{Binding RendelesCommand}"
+                       >
+                    
+                </Button>
+            </StackPanel>
+            <StackPanel Margin="10">
+                <StackPanel Orientation="Horizontal">
+                    <Button Margin="5" Command="{Binding TorlesCommand}">Törlés</Button>
+                    <Button Margin="5" Command="{Binding ModositasCommand}">Módosítás</Button>
+                </StackPanel>
+                <TextBlock>Fizetendő összeg:</TextBlock>
+                <TextBlock>A választott pizzák:</TextBlock>
+                <ListBox ItemsSource="{Binding Pizzak}"
+                         SelectedItem="{Binding KivalasztottPizza}"
+                         >
+                </ListBox>
+                <Button x:Name="btCompute" 
+                    Margin="120 10" 
+                    Width="130" 
+                    Content="Számítás"
+                    Command="{Binding ComputeCommand}">
+                </Button>
+            </StackPanel>
+        </StackPanel>
+    </StackPanel>
+</Window>
