@@ -73,6 +73,7 @@
             </StackPanel>
             <StackPanel Margin="10">
                 <StackPanel Orientation="Horizontal">
+                    <Button Margin="5" Command="{Binding UjCommand}">Uj</Button>
                     <Button Margin="5" Command="{Binding TorlesCommand}">Törlés</Button>
                     <Button Margin="5" Command="{Binding ModositasCommand}">Módosítás</Button>
                 </StackPanel>

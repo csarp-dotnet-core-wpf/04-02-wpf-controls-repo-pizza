@@ -16,50 +16,18 @@ namespace PizzaProject.ViewModel
 
         public PizzaViewModel()
         {
-            _pizza= new Pizza();
-            _repo= new PizzaRepo();
+            _pizza = new Pizza();
+            _repo = new PizzaRepo();
 
             RendelesCommand = new RelayCommand(execute => RendelesLeadas());
             TorlesCommand = new RelayCommand(execute => RendelesTorles());
             ModositasCommand = new RelayCommand(execute => RendelesModositas());
+            UjCommand = new RelayCommand(execute => UjPizza());
         }
 
-        public ObservableCollection<Pizza> Pizzak
+        public bool KicsiPizza
         {
             get
-            {
-                return new ObservableCollection<Pizza>(_repo.Pizzak);
-            }
-        }
-
-        private void RendelesLeadas()
-        {
-            _pizza.Id = _repo.KovetkezoId;
-            _repo.Hozzad(_pizza);
-            OnPropertyChanged(nameof(Pizzak));
-            _pizza=new Pizza();
-        }
-
-        private void RendelesTorles()
-        {
-            _repo.Torol(_pizza);
-            OnPropertyChanged(nameof(Pizzak));
-        }
-
-        private void RendelesModositas()
-        {
-            _repo.Modosit(_pizza);
-            OnPropertyChanged(nameof(Pizzak));
-        }
-
-
-        public RelayCommand RendelesCommand { get; set; }
-        public RelayCommand TorlesCommand { get; set; }
-        public RelayCommand ModositasCommand { get; set; }
-
-        public bool KicsiPizza 
-        {
-            get 
             {
                 if (_pizza.Meret == PizzaMeret.KIS)
                     return true;
@@ -67,13 +35,13 @@ namespace PizzaProject.ViewModel
                     return false;
             }
             set
-            { 
-                if (value==true)
-                    _pizza.Meret= PizzaMeret.KIS;
+            {
+                if (value == true)
+                    _pizza.Meret = PizzaMeret.KIS;
                 OnPropertyChanged(nameof(Ar));
             }
         }
-        public bool KozepesPizza 
+        public bool KozepesPizza
         {
             get
             {
@@ -89,7 +57,7 @@ namespace PizzaProject.ViewModel
                 OnPropertyChanged(nameof(Ar));
             }
         }
-        public bool NagyPizza 
+        public bool NagyPizza
         {
             get
             {
@@ -109,8 +77,8 @@ namespace PizzaProject.ViewModel
         public bool Ontet
         {
             get { return _pizza.Ontet; }
-            set 
-            { 
+            set
+            {
                 _pizza.Ontet = value;
                 OnPropertyChanged(nameof(Ar));
             }
@@ -186,19 +154,30 @@ namespace PizzaProject.ViewModel
         public Pizza Pizza
         {
             get { return _pizza; }
-            set 
-            { 
-                _pizza = value; 
-                OnPropertyChanged(nameof(KicsiPizza));
-                OnPropertyChanged(nameof(KozepesPizza));
-                OnPropertyChanged(nameof(NagyPizza));
-                OnPropertyChanged(nameof(Db));
-                OnPropertyChanged(nameof(Ontet));
-                OnPropertyChanged(nameof(Sajt));
-                OnPropertyChanged(nameof(Kolbasz));
-                OnPropertyChanged(nameof(Sonka));
-                OnPropertyChanged(nameof(KivalasztottFogysztasiHely));
-            } 
+            set
+            {
+                if (value != null)
+                {
+                    _pizza = value;
+                    OnPropertyChanged(nameof(KicsiPizza));
+                    OnPropertyChanged(nameof(KozepesPizza));
+                    OnPropertyChanged(nameof(NagyPizza));
+                    OnPropertyChanged(nameof(Db));
+                    OnPropertyChanged(nameof(Ontet));
+                    OnPropertyChanged(nameof(Sajt));
+                    OnPropertyChanged(nameof(Kolbasz));
+                    OnPropertyChanged(nameof(Sonka));
+                    OnPropertyChanged(nameof(KivalasztottFogysztasiHely));
+                }
+            }
+        }
+
+        public ObservableCollection<Pizza> Pizzak
+        {
+            get
+            {
+                return new ObservableCollection<Pizza>(_repo.Pizzak);
+            }
         }
 
         public Pizza KivalasztottPizza
@@ -206,9 +185,43 @@ namespace PizzaProject.ViewModel
             get { return _pizza; }
             set
             {
-                Pizza = value;
-                OnPropertyChanged(nameof(Pizza));
+                if (value != null)
+                {
+                    Pizza = value;
+                    OnPropertyChanged(nameof(Pizza));
+                }
             }
         }
+
+        public RelayCommand RendelesCommand { get; set; }
+        public RelayCommand TorlesCommand { get; set; }
+        public RelayCommand ModositasCommand { get; set; }
+        public RelayCommand UjCommand { get; set; }
+
+        private void RendelesLeadas()
+        {
+            _pizza.Id = _repo.KovetkezoId;
+            _repo.Hozzad(_pizza);
+            OnPropertyChanged(nameof(Pizzak));
+            //_pizza=new Pizza();
+        }
+
+        private void UjPizza()
+        {
+            Pizza = new Pizza();
+        }
+
+        private void RendelesTorles()
+        {
+            _repo.Torol(_pizza);
+            OnPropertyChanged(nameof(Pizzak));
+        }
+
+        private void RendelesModositas()
+        {
+            _repo.Modosit(_pizza);
+            OnPropertyChanged(nameof(Pizzak));
+        }
+
     }
 }
