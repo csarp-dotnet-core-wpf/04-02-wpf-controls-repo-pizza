@@ -198,18 +198,19 @@ namespace PizzaProject.ViewModel
         public RelayCommand ModositasCommand { get; set; }
         public RelayCommand UjCommand { get; set; }
 
+        private void UjPizza()
+        {
+            Pizza = new Pizza();
+        }
+
         private void RendelesLeadas()
         {
             _pizza.Id = _repo.KovetkezoId;
             _repo.Hozzad(_pizza);
             OnPropertyChanged(nameof(Pizzak));
-            //_pizza=new Pizza();
         }
 
-        private void UjPizza()
-        {
-            Pizza = new Pizza();
-        }
+
 
         private void RendelesTorles()
         {

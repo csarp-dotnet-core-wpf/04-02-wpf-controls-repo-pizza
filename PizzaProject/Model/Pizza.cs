@@ -10,7 +10,7 @@ namespace PizzaProject.Model
 
     public class Pizza : ICloneable
     {
-        private int id;
+        private int _id;
         public int Id { get; set; }
 
         private PizzaMeret _meret;
